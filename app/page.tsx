@@ -58,7 +58,7 @@ export default function Home() {
     {
       id: 4,
       name: "Maldivas",
-      image: "/images/maldives.jpg",
+      image: "/images/maldivas.jpg",
       price: "$1,899",
       rating: 5.0,
       duration: "8 días",
@@ -416,7 +416,7 @@ export default function Home() {
             >
               <div className="relative h-64 overflow-hidden">
                 <Image
-                  src="/images/paris.jpg"
+                  src="/images/paris.webp"
                   alt="París"
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -466,7 +466,7 @@ export default function Home() {
             >
               <div className="relative h-64 overflow-hidden">
                 <Image
-                  src="/images/tokyo.jpg"
+                  src="/images/tokyo.jpeg"
                   alt="Tokio"
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
