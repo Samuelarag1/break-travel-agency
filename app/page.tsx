@@ -19,6 +19,9 @@ import { DestinationCard } from "@/components/destination-card";
 import { NewsletterForm } from "@/components/newsletter-form";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { DatePickerWithRange } from "@/components/date-range-picker";
+import { DestinationSearch } from "@/components/destination-search";
+import { destinations, testimonials } from "@/lib/data";
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
@@ -30,67 +33,7 @@ export default function Home() {
     setIsLoaded(true);
   }, []);
 
-  const destinations = [
-    {
-      id: 1,
-      name: "Santorini, Grecia",
-      image: "/images/santorini.jpg",
-      price: "$1,299",
-      rating: 4.9,
-      duration: "7 días",
-    },
-    {
-      id: 2,
-      name: "Bali, Indonesia",
-      image: "/images/bali.jpg",
-      price: "$1,199",
-      rating: 4.8,
-      duration: "10 días",
-    },
-    {
-      id: 3,
-      name: "Tulum, México",
-      image: "/images/tulum.jpg",
-      price: "$899",
-      rating: 4.7,
-      duration: "5 días",
-    },
-    {
-      id: 4,
-      name: "Maldivas",
-      image: "/images/maldivas.jpg",
-      price: "$1,899",
-      rating: 5.0,
-      duration: "8 días",
-    },
-  ];
 
-  const testimonials = [
-    {
-      id: 1,
-      name: "María González",
-      role: "Aventurera",
-      content:
-        "Mi viaje a Bali con BREAK fue increíble. Todo estaba perfectamente organizado y el servicio al cliente fue excepcional. ¡Definitivamente volveré a viajar con ellos!",
-      avatar: "/images/avatar-1.jpg",
-    },
-    {
-      id: 2,
-      name: "Carlos Rodríguez",
-      role: "Fotógrafo de viajes",
-      content:
-        "Como fotógrafo, busco destinos únicos y BREAK siempre me sorprende con sus recomendaciones. Su atención al detalle hace que cada viaje sea una experiencia inolvidable.",
-      avatar: "/images/avatar-2.jpg",
-    },
-    {
-      id: 3,
-      name: "Laura Martínez",
-      role: "Viajera frecuente",
-      content:
-        "He viajado con muchas agencias, pero BREAK realmente entiende lo que busco. Sus paquetes personalizados y el conocimiento local de sus guías marcan la diferencia.",
-      avatar: "/images/avatar-3.jpg",
-    },
-  ];
 
   return (
     <div
@@ -101,7 +44,7 @@ export default function Home() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative h-[90vh] overflow-hidden">
+      <section className="relative min-h-screen flex flex-col justify-between overflow-hidden">
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
           <Image
             src="/images/hero.jpg"
@@ -113,7 +56,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/10" />
         </motion.div>
 
-        <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center text-white">
+        <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 text-center text-white pt-20 pb-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -154,7 +97,7 @@ export default function Home() {
             <Button
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white/20"
+              className="border-white text-black hover:bg-white/20"
             >
               Ver ofertas especiales
             </Button>
@@ -165,7 +108,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="absolute bottom-0 left-0 right-0 z-10"
+          className="relative z-10 w-full"
         >
           <div className="mx-auto max-w-5xl rounded-t-3xl bg-white p-6 shadow-lg">
             <Tabs defaultValue="vuelos" className="w-full">
@@ -187,27 +130,15 @@ export default function Home() {
                 <div className="grid gap-4 md:grid-cols-4">
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Origen</label>
-                    <input
-                      type="text"
-                      placeholder="Ciudad de origen"
-                      className="w-full rounded-md border border-gray-300 p-2 focus:border-rose-500 focus:outline-none"
-                    />
+                    <DestinationSearch placeholder="Ciudad de origen" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Destino</label>
-                    <input
-                      type="text"
-                      placeholder="Ciudad de destino"
-                      className="w-full rounded-md border border-gray-300 p-2 focus:border-rose-500 focus:outline-none"
-                    />
+                    <DestinationSearch placeholder="Ciudad de destino" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Fechas</label>
-                    <input
-                      type="text"
-                      placeholder="DD/MM/AAAA - DD/MM/AAAA"
-                      className="w-full rounded-md border border-gray-300 p-2 focus:border-rose-500 focus:outline-none"
-                    />
+                    <DatePickerWithRange />
                   </div>
                   <div className="flex items-end">
                     <Button className="w-full bg-rose-500 hover:bg-rose-600">
@@ -220,21 +151,13 @@ export default function Home() {
                 <div className="grid gap-4 md:grid-cols-4">
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Destino</label>
-                    <input
-                      type="text"
-                      placeholder="Ciudad o hotel"
-                      className="w-full rounded-md border border-gray-300 p-2 focus:border-rose-500 focus:outline-none"
-                    />
+                    <DestinationSearch placeholder="Ciudad o hotel" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium">
                       Check-in / Check-out
                     </label>
-                    <input
-                      type="text"
-                      placeholder="DD/MM/AAAA - DD/MM/AAAA"
-                      className="w-full rounded-md border border-gray-300 p-2 focus:border-rose-500 focus:outline-none"
-                    />
+                    <DatePickerWithRange />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Huéspedes</label>
@@ -255,27 +178,15 @@ export default function Home() {
                 <div className="grid gap-4 md:grid-cols-4">
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Origen</label>
-                    <input
-                      type="text"
-                      placeholder="Ciudad de origen"
-                      className="w-full rounded-md border border-gray-300 p-2 focus:border-rose-500 focus:outline-none"
-                    />
+                    <DestinationSearch placeholder="Ciudad de origen" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Destino</label>
-                    <input
-                      type="text"
-                      placeholder="Ciudad de destino"
-                      className="w-full rounded-md border border-gray-300 p-2 focus:border-rose-500 focus:outline-none"
-                    />
+                    <DestinationSearch placeholder="Ciudad de destino" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Fechas</label>
-                    <input
-                      type="text"
-                      placeholder="DD/MM/AAAA - DD/MM/AAAA"
-                      className="w-full rounded-md border border-gray-300 p-2 focus:border-rose-500 focus:outline-none"
-                    />
+                    <DatePickerWithRange />
                   </div>
                   <div className="flex items-end">
                     <Button className="w-full bg-rose-500 hover:bg-rose-600">

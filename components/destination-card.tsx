@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { Clock, MapPin, Star } from "lucide-react"
 
 import { Card, CardContent } from "@/components/ui/card"
@@ -17,7 +18,7 @@ interface DestinationCardProps {
 
 export function DestinationCard({ destination }: DestinationCardProps) {
   return (
-    <Card className="group overflow-hidden transition-all hover:shadow-lg">
+    <Card className="group overflow-hidden transition-all hover:shadow-lg cursor-pointer">
       <div className="relative h-64 overflow-hidden">
         <Image
           src={destination.image || "/placeholder.svg"}
@@ -49,8 +50,10 @@ export function DestinationCard({ destination }: DestinationCardProps) {
             <span className="text-lg font-bold text-rose-500">{destination.price}</span>
             <span className="text-sm text-gray-500"> /persona</span>
           </div>
-          <Button size="sm" className="bg-rose-500 hover:bg-rose-600">
-            Ver detalles
+          <Button asChild size="sm" className="bg-rose-500 hover:bg-rose-600">
+            <Link href={`/destinations/${destination.id}`}>
+              Ver detalles
+            </Link>
           </Button>
         </div>
       </CardContent>
