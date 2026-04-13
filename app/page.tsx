@@ -7,20 +7,16 @@ import {
   ChevronRight,
   MapPin,
   PalmtreeIcon,
-  Plane,
   Star,
-  Users,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Testimonial } from "@/components/testimonial";
 import { DestinationCard } from "@/components/destination-card";
 import { NewsletterForm } from "@/components/newsletter-form";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { DatePickerWithRange } from "@/components/date-range-picker";
-import { DestinationSearch } from "@/components/destination-search";
+import { TravelSearchPanel } from "@/components/travel-search-panel";
 import { destinations, testimonials } from "@/lib/data";
 
 export default function Home() {
@@ -48,7 +44,7 @@ export default function Home() {
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
           <Image
             src="/images/hero.jpg"
-            alt="Playa paradisíaca"
+            alt="Playa paradisiaca"
             fill
             className="object-cover"
             priority
@@ -79,7 +75,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mb-8 max-w-2xl text-lg text-gray-100 sm:text-xl"
           >
-            Experiencias únicas, destinos increíbles y momentos inolvidables te
+            Experiencias unicas, destinos increibles y momentos inolvidables te
             esperan
           </motion.p>
           <motion.div
@@ -111,91 +107,7 @@ export default function Home() {
           className="relative z-10 w-full"
         >
           <div className="mx-auto max-w-5xl rounded-t-3xl bg-white p-6 shadow-lg">
-            <Tabs defaultValue="vuelos" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="vuelos" className="text-sm sm:text-base">
-                  <Plane className="mr-2 h-4 w-4" />
-                  Vuelos
-                </TabsTrigger>
-                <TabsTrigger value="hoteles" className="text-sm sm:text-base">
-                  <PalmtreeIcon className="mr-2 h-4 w-4" />
-                  Hoteles
-                </TabsTrigger>
-                <TabsTrigger value="paquetes" className="text-sm sm:text-base">
-                  <Users className="mr-2 h-4 w-4" />
-                  Paquetes
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="vuelos" className="mt-4">
-                <div className="grid gap-4 md:grid-cols-4">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Origen</label>
-                    <DestinationSearch placeholder="Ciudad de origen" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Destino</label>
-                    <DestinationSearch placeholder="Ciudad de destino" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Fechas</label>
-                    <DatePickerWithRange />
-                  </div>
-                  <div className="flex items-end">
-                    <Button className="w-full bg-rose-500 hover:bg-rose-600">
-                      Buscar
-                    </Button>
-                  </div>
-                </div>
-              </TabsContent>
-              <TabsContent value="hoteles" className="mt-4">
-                <div className="grid gap-4 md:grid-cols-4">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Destino</label>
-                    <DestinationSearch placeholder="Ciudad o hotel" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">
-                      Check-in / Check-out
-                    </label>
-                    <DatePickerWithRange />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Huéspedes</label>
-                    <input
-                      type="text"
-                      placeholder="2 adultos, 0 niños"
-                      className="w-full rounded-md border border-gray-300 p-2 focus:border-rose-500 focus:outline-none"
-                    />
-                  </div>
-                  <div className="flex items-end">
-                    <Button className="w-full bg-rose-500 hover:bg-rose-600">
-                      Buscar
-                    </Button>
-                  </div>
-                </div>
-              </TabsContent>
-              <TabsContent value="paquetes" className="mt-4">
-                <div className="grid gap-4 md:grid-cols-4">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Origen</label>
-                    <DestinationSearch placeholder="Ciudad de origen" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Destino</label>
-                    <DestinationSearch placeholder="Ciudad de destino" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Fechas</label>
-                    <DatePickerWithRange />
-                  </div>
-                  <div className="flex items-end">
-                    <Button className="w-full bg-rose-500 hover:bg-rose-600">
-                      Buscar
-                    </Button>
-                  </div>
-                </div>
-              </TabsContent>
-            </Tabs>
+            <TravelSearchPanel />
           </div>
         </motion.div>
       </section>
@@ -214,8 +126,8 @@ export default function Home() {
               Destinos <span className="text-rose-500">Populares</span>
             </h2>
             <p className="mx-auto max-w-2xl text-gray-600">
-              Descubre los destinos más buscados por nuestros viajeros y
-              prepárate para vivir experiencias inolvidables
+              Descubre los destinos mas buscados por nuestros viajeros y
+              preparate para vivir experiencias inolvidables
             </p>
           </motion.div>
 
@@ -263,7 +175,7 @@ export default function Home() {
             </h2>
             <p className="mx-auto max-w-2xl text-gray-600">
               Aprovecha nuestras promociones exclusivas por tiempo limitado y
-              haz realidad tu próxima aventura
+              haz realidad tu proxima aventura
             </p>
           </motion.div>
 
@@ -278,7 +190,7 @@ export default function Home() {
               <div className="relative h-64 overflow-hidden">
                 <Image
                   src="/images/cancun.jpg"
-                  alt="Cancún"
+                  alt="Cancun"
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
@@ -288,7 +200,7 @@ export default function Home() {
               </div>
               <div className="p-6">
                 <div className="mb-2 flex items-center justify-between">
-                  <h3 className="text-xl font-bold">Cancún Todo Incluido</h3>
+                  <h3 className="text-xl font-bold">Cancun Todo Incluido</h3>
                   <div className="flex items-center">
                     <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                     <span className="ml-1 text-sm font-medium">4.8</span>
@@ -296,11 +208,11 @@ export default function Home() {
                 </div>
                 <div className="mb-4 flex items-center text-gray-500">
                   <MapPin className="mr-1 h-4 w-4" />
-                  <span className="text-sm">Cancún, México</span>
+                  <span className="text-sm">Cancun, Mexico</span>
                 </div>
                 <p className="mb-4 text-gray-600">
-                  7 días en resort 5 estrellas con todas las comidas y bebidas
-                  incluidas, acceso a actividades exclusivas y más.
+                  7 dias en resort 5 estrellas con todas las comidas y bebidas
+                  incluidas, acceso a actividades exclusivas y mas.
                 </p>
                 <div className="flex items-center justify-between">
                   <div>
@@ -328,7 +240,7 @@ export default function Home() {
               <div className="relative h-64 overflow-hidden">
                 <Image
                   src="/images/paris.webp"
-                  alt="París"
+                  alt="Paris"
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
@@ -338,7 +250,7 @@ export default function Home() {
               </div>
               <div className="p-6">
                 <div className="mb-2 flex items-center justify-between">
-                  <h3 className="text-xl font-bold">Escapada a París</h3>
+                  <h3 className="text-xl font-bold">Escapada a Paris</h3>
                   <div className="flex items-center">
                     <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                     <span className="ml-1 text-sm font-medium">4.7</span>
@@ -346,10 +258,10 @@ export default function Home() {
                 </div>
                 <div className="mb-4 flex items-center text-gray-500">
                   <MapPin className="mr-1 h-4 w-4" />
-                  <span className="text-sm">París, Francia</span>
+                  <span className="text-sm">Paris, Francia</span>
                 </div>
                 <p className="mb-4 text-gray-600">
-                  5 días en hotel boutique, desayuno incluido, tour por la
+                  5 dias en hotel boutique, desayuno incluido, tour por la
                   ciudad y entrada a los principales museos.
                 </p>
                 <div className="flex items-center justify-between">
@@ -396,11 +308,11 @@ export default function Home() {
                 </div>
                 <div className="mb-4 flex items-center text-gray-500">
                   <MapPin className="mr-1 h-4 w-4" />
-                  <span className="text-sm">Tokio, Japón</span>
+                  <span className="text-sm">Tokio, Japon</span>
                 </div>
                 <p className="mb-4 text-gray-600">
-                  8 días explorando la cultura japonesa, alojamiento céntrico,
-                  guía en español y transporte incluido.
+                  8 dias explorando la cultura japonesa, alojamiento centrico,
+                  guia en espanol y transporte incluido.
                 </p>
                 <div className="flex items-center justify-between">
                   <div>
@@ -421,7 +333,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Por qué elegirnos */}
+      {/* Por que elegirnos */}
       <section className="py-20">
         <div className="container px-4">
           <motion.div
@@ -432,7 +344,7 @@ export default function Home() {
             className="mb-12 text-center"
           >
             <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-              ¿Por qué elegir <span className="text-rose-500">BREAK</span>?
+              Por que elegir <span className="text-rose-500">BREAK</span>?
             </h2>
             <p className="mx-auto max-w-2xl text-gray-600">
               Nos dedicamos a crear experiencias de viaje excepcionales que
@@ -524,10 +436,10 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold">Experiencias Únicas</h3>
+              <h3 className="mb-2 text-xl font-bold">Experiencias Unicas</h3>
               <p className="text-gray-600">
                 Creamos itinerarios personalizados que te permiten descubrir
-                cada destino de manera auténtica.
+                cada destino de manera autentica.
               </p>
             </motion.div>
 
@@ -554,9 +466,9 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold">Atención 24/7</h3>
+              <h3 className="mb-2 text-xl font-bold">Atencion 24/7</h3>
               <p className="text-gray-600">
-                Nuestro equipo está disponible en todo momento para asistirte
+                Nuestro equipo esta disponible en todo momento para asistirte
                 durante tu viaje.
               </p>
             </motion.div>
@@ -619,11 +531,11 @@ export default function Home() {
             className="mx-auto max-w-3xl text-center text-white"
           >
             <h2 className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-              ¿Listo para tu próxima aventura?
+              Listo para tu proxima aventura?
             </h2>
             <p className="mb-8 text-lg">
-              Suscríbete a nuestro boletín y recibe ofertas exclusivas, consejos
-              de viaje y mucho más.
+              Suscribete a nuestro boletin y recibe ofertas exclusivas, consejos
+              de viaje y mucho mas.
             </p>
             <NewsletterForm />
           </motion.div>

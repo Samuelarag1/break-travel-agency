@@ -1,16 +1,24 @@
 "use client"
 
-import { use } from "react"
+import { use, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Clock, MapPin, Star, User, ArrowLeft, Check } from "lucide-react"
+import { ArrowLeft, Check, Clock, MapPin, Star } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { DatePickerWithRange } from "@/components/date-range-picker"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { destinations } from "@/lib/data"
+import { createDateRange } from "@/lib/travel-utils"
 
 export default function DestinationPage({
   params,
@@ -19,6 +27,8 @@ export default function DestinationPage({
 }) {
   const { id } = use(params)
   const destination = destinations.find((d) => d.id === parseInt(id))
+  const [travelDates, setTravelDates] = useState(() => createDateRange(new Date(), 35, 6))
+  const [travelers, setTravelers] = useState("2")
 
   if (!destination) {
     return (
@@ -210,13 +220,28 @@ export default function DestinationPage({
                       <label className="mb-1 block text-xs font-semibold uppercase text-gray-500">
                         Fechas
                       </label>
-                      <div className="font-medium">Seleccionar fechas</div>
+                      <DatePickerWithRange
+                        value={travelDates}
+                        onChange={setTravelDates}
+                        minNights={2}
+                        maxNights={14}
+                      />
                     </div>
                     <div className="rounded-lg border p-3">
                       <label className="mb-1 block text-xs font-semibold uppercase text-gray-500">
                         Viajeros
                       </label>
-                      <div className="font-medium">2 Adultos</div>
+                      <Select value={travelers} onValueChange={setTravelers}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecciona viajeros" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">1 adulto</SelectItem>
+                          <SelectItem value="2">2 adultos</SelectItem>
+                          <SelectItem value="3">2 adultos y 1 nino</SelectItem>
+                          <SelectItem value="4">4 viajeros</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
                   </div>
 
