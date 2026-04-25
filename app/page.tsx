@@ -6,7 +6,6 @@ import Image from "next/image";
 import {
   ChevronRight,
   MapPin,
-  PalmtreeIcon,
   Star,
 } from "lucide-react";
 
@@ -40,7 +39,7 @@ export default function Home() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col justify-between overflow-hidden">
+      <section className="relative flex min-h-[820px] flex-col justify-end overflow-hidden pb-6 pt-24 sm:min-h-screen sm:pb-0">
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
           <Image
             src="/images/hero.jpg"
@@ -52,61 +51,33 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/10" />
         </motion.div>
 
-        <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 text-center text-white pt-20 pb-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-2"
-          >
-            <PalmtreeIcon className="mx-auto h-16 w-16" />
-          </motion.div>
+        <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center px-4 pb-5 pt-4 text-center text-white sm:pb-8">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="mb-6 text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl"
+            className="mx-auto mb-4 max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-6xl md:text-7xl"
           >
-            DESCUBRE TU <span className="text-rose-400">BREAK</span> PERFECTO
+            Encontra tu proximo <span className="text-rose-300">break</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mb-8 max-w-2xl text-lg text-gray-100 sm:text-xl"
+            className="mx-auto max-w-2xl text-base text-gray-100 sm:text-xl"
           >
-            Experiencias unicas, destinos increibles y momentos inolvidables te
-            esperan
+            Decinos desde donde salis y a donde queres ir. Nosotros armamos la
+            mejor opcion para tu viaje.
           </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0"
-          >
-            <Button
-              size="lg"
-              className="bg-rose-500 text-white hover:bg-rose-600"
-            >
-              Explorar destinos
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white text-black hover:bg-white/20"
-            >
-              Ver ofertas especiales
-            </Button>
-          </motion.div>
         </div>
 
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="relative z-10 w-full"
+          className="relative z-10 w-full px-3 sm:px-4"
         >
-          <div className="mx-auto max-w-5xl rounded-t-3xl bg-white p-6 shadow-lg">
+          <div className="mx-auto max-w-5xl rounded-3xl bg-white p-3 shadow-2xl sm:rounded-t-3xl sm:p-5 lg:p-6">
             <TravelSearchPanel />
           </div>
         </motion.div>

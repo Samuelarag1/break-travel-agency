@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowLeft, Check, Clock, MapPin, Star } from "lucide-react"
+import type { DateRange } from "react-day-picker"
 
 import { Button } from "@/components/ui/button"
 import { DatePickerWithRange } from "@/components/date-range-picker"
@@ -27,7 +28,9 @@ export default function DestinationPage({
 }) {
   const { id } = use(params)
   const destination = destinations.find((d) => d.id === parseInt(id))
-  const [travelDates, setTravelDates] = useState(() => createDateRange(new Date(), 35, 6))
+  const [travelDates, setTravelDates] = useState<DateRange | undefined>(() =>
+    createDateRange(new Date(), 35, 6)
+  )
   const [travelers, setTravelers] = useState("2")
 
   if (!destination) {

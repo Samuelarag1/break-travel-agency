@@ -59,7 +59,7 @@ export function DestinationSearch({
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "h-auto min-h-10 w-full justify-between gap-3 px-3 py-2 text-left",
+            "h-auto min-h-12 w-full justify-between gap-3 rounded-xl border-stone-200 px-3 py-2.5 text-left shadow-sm",
             className
           )}
         >
@@ -68,13 +68,13 @@ export function DestinationSearch({
             <div className="min-w-0">
               <p
                 className={cn(
-                  "truncate text-sm font-medium",
+                  "truncate text-base font-semibold leading-tight",
                   !selectedCity && "text-muted-foreground"
                 )}
               >
                 {selectedCity ? selectedCity.label : placeholder}
               </p>
-              <p className="truncate text-xs text-muted-foreground">
+              <p className="mt-0.5 truncate text-xs text-muted-foreground">
                 {selectedCity
                   ? `${selectedCity.code} | ${selectedCity.country}`
                   : "Busca entre destinos populares"}
@@ -84,7 +84,10 @@ export function DestinationSearch({
           <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+      <PopoverContent
+        className="w-[--radix-popover-trigger-width] min-w-[min(92vw,22rem)] p-0"
+        align="start"
+      >
         <Command>
           <CommandInput placeholder="Busca destino o aeropuerto..." />
           <CommandList>

@@ -35,7 +35,10 @@ const defaultPresets: DatePreset[] = [
   { label: "15 noches", offsetDays: 60, nights: 15 },
 ];
 
-type DatePickerWithRangeProps = React.HTMLAttributes<HTMLDivElement> & {
+type DatePickerWithRangeProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "onChange"
+> & {
   value?: DateRange;
   onChange?: (nextValue: DateRange | undefined) => void;
   placeholder?: string;
@@ -87,7 +90,7 @@ export function DatePickerWithRange({
             type="button"
             variant="outline"
             className={cn(
-              "h-auto min-h-10 w-full justify-start px-3 py-2 text-left font-normal",
+              "h-auto min-h-12 w-full justify-start rounded-xl border-stone-200 px-3 py-2.5 text-left font-normal shadow-sm",
               !selectedRange?.from && "text-muted-foreground"
             )}
           >
@@ -104,14 +107,11 @@ export function DatePickerWithRange({
             </div>
           </Button>
         </PopoverTrigger>
-        <PopoverContent
-          className="w-[min(92vw,760px)] p-0"
-          align="start"
-        >
-          <div className="space-y-4 p-4">
-            <div className="grid gap-3 rounded-2xl bg-stone-50 p-3 sm:grid-cols-2">
+        <PopoverContent className="w-[min(94vw,760px)] p-0" align="start">
+          <div className="space-y-3 p-3 sm:space-y-4 sm:p-4">
+            <div className="grid gap-2 rounded-2xl bg-stone-50 p-2 sm:grid-cols-2 sm:gap-3 sm:p-3">
               <div className="rounded-xl bg-white p-3 shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+                <p className="text-xs font-semibold uppercase text-muted-foreground">
                   Desde
                 </p>
                 <p className="mt-1 text-sm font-semibold text-slate-900">
@@ -119,7 +119,7 @@ export function DatePickerWithRange({
                 </p>
               </div>
               <div className="rounded-xl bg-white p-3 shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+                <p className="text-xs font-semibold uppercase text-muted-foreground">
                   Hasta
                 </p>
                 <p className="mt-1 text-sm font-semibold text-slate-900">

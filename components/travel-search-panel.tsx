@@ -4,12 +4,13 @@ import * as React from "react";
 import type { DateRange } from "react-day-picker";
 import {
   ArrowRightLeft,
-  BriefcaseBusiness,
   CreditCard,
   Hotel,
   Package,
   Plane,
+  Search,
   ShieldCheck,
+  SlidersHorizontal,
   Users,
 } from "lucide-react";
 
@@ -312,41 +313,50 @@ export function TravelSearchPanel() {
   }
 
   return (
-    <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-      <TabsList className="grid h-auto w-full grid-cols-3 rounded-2xl bg-stone-100 p-1">
-        <TabsTrigger value="vuelos" className="py-3 text-sm sm:text-base">
+    <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full text-slate-900">
+      <TabsList className="grid h-auto w-full grid-cols-3 rounded-full bg-stone-100 p-1">
+        <TabsTrigger
+          value="vuelos"
+          className="rounded-full px-2 py-2.5 text-xs data-[state=active]:bg-white sm:text-sm"
+        >
           <Plane className="mr-2 h-4 w-4" />
           Vuelos
         </TabsTrigger>
-        <TabsTrigger value="hoteles" className="py-3 text-sm sm:text-base">
+        <TabsTrigger
+          value="hoteles"
+          className="rounded-full px-2 py-2.5 text-xs data-[state=active]:bg-white sm:text-sm"
+        >
           <Hotel className="mr-2 h-4 w-4" />
           Hoteles
         </TabsTrigger>
-        <TabsTrigger value="paquetes" className="py-3 text-sm sm:text-base">
+        <TabsTrigger
+          value="paquetes"
+          className="rounded-full px-2 py-2.5 text-xs data-[state=active]:bg-white sm:text-sm"
+        >
           <Package className="mr-2 h-4 w-4" />
           Paquetes
         </TabsTrigger>
       </TabsList>
 
-      <TabsContent value="vuelos" className="mt-5">
-        <form onSubmit={handleFlightSubmit} className="space-y-4">
-          <div className="grid gap-4 xl:grid-cols-[1.1fr_auto_1.1fr_1.2fr]">
+      <TabsContent value="vuelos" className="mt-4">
+        <form onSubmit={handleFlightSubmit} className="space-y-3">
+          <div className="grid gap-3 lg:grid-cols-[1fr_auto_1fr_1.1fr_auto] lg:items-end">
             <div className="space-y-2">
               <label className="text-sm font-medium">Origen</label>
               <DestinationSearch
-                placeholder="Ciudad de origen"
+                placeholder="Desde donde salis"
                 value={flightForm.origin}
                 onValueChange={(origin) =>
                   setFlightForm((current) => ({ ...current, origin }))
                 }
               />
             </div>
-            <div className="flex items-end">
+            <div className="flex justify-center lg:pb-[2px]">
               <Button
                 type="button"
                 variant="outline"
                 size="icon"
-                className="mb-[2px]"
+                className="h-11 w-11 rounded-full border-stone-200"
                 onClick={() =>
                   setFlightForm((current) => ({
                     ...current,
@@ -362,7 +372,7 @@ export function TravelSearchPanel() {
             <div className="space-y-2">
               <label className="text-sm font-medium">Destino</label>
               <DestinationSearch
-                placeholder="Ciudad de destino"
+                placeholder="A donde queres ir"
                 value={flightForm.destination}
                 onValueChange={(destination) =>
                   setFlightForm((current) => ({ ...current, destination }))
@@ -381,10 +391,30 @@ export function TravelSearchPanel() {
                 maxNights={21}
               />
             </div>
+            <div className="flex items-end">
+              <Button
+                type="submit"
+                size="lg"
+                className="h-12 w-full rounded-xl bg-rose-500 hover:bg-rose-600"
+                disabled={!isFlightValid}
+              >
+                <Search className="h-4 w-4" />
+                Buscar
+              </Button>
+            </div>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-[1fr_1fr_auto]">
-            <div className="grid gap-4 md:grid-cols-2">
+          <details className="group rounded-2xl border border-stone-200 bg-stone-50/80">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-semibold text-slate-800">
+              <span className="flex items-center gap-2">
+                <SlidersHorizontal className="h-4 w-4 text-rose-500" />
+                Opciones del viaje
+              </span>
+              <span className="text-xs font-medium text-muted-foreground group-open:hidden">
+                {getOptionLabel(flightForm.passengers, flightPassengerOptions)}
+              </span>
+            </summary>
+            <div className="grid gap-3 border-t border-stone-200 p-4 md:grid-cols-3">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Pasajeros</label>
                 <Select
@@ -425,16 +455,8 @@ export function TravelSearchPanel() {
                   </SelectContent>
                 </Select>
               </div>
-            </div>
-
-            <div className="rounded-2xl border bg-stone-50 px-4 py-3">
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-sm font-semibold">Solo vuelos directos</p>
-                  <p className="text-xs text-muted-foreground">
-                    Ideal para demo con tiempos de viaje mas cortos.
-                  </p>
-                </div>
+              <div className="flex min-h-10 items-center justify-between gap-3 rounded-xl border bg-white px-3 py-2">
+                <p className="text-sm font-medium">Solo vuelos directos</p>
                 <Switch
                   checked={flightForm.directOnly}
                   onCheckedChange={(directOnly) =>
@@ -443,17 +465,7 @@ export function TravelSearchPanel() {
                 />
               </div>
             </div>
-
-            <div className="flex items-end">
-              <Button
-                type="submit"
-                className="w-full bg-rose-500 hover:bg-rose-600"
-                disabled={!isFlightValid}
-              >
-                Buscar vuelos
-              </Button>
-            </div>
-          </div>
+          </details>
 
           {flightForm.origin === flightForm.destination ? (
             <p className="text-sm text-amber-600">
@@ -463,9 +475,9 @@ export function TravelSearchPanel() {
         </form>
       </TabsContent>
 
-      <TabsContent value="hoteles" className="mt-5">
-        <form onSubmit={handleHotelSubmit} className="space-y-4">
-          <div className="grid gap-4 xl:grid-cols-[1.2fr_1.1fr_0.8fr_0.8fr]">
+      <TabsContent value="hoteles" className="mt-4">
+        <form onSubmit={handleHotelSubmit} className="space-y-3">
+          <div className="grid gap-3 lg:grid-cols-[1.2fr_1fr_auto] lg:items-end">
             <div className="space-y-2">
               <label className="text-sm font-medium">Destino</label>
               <DestinationSearch
@@ -488,6 +500,30 @@ export function TravelSearchPanel() {
                 maxNights={14}
               />
             </div>
+            <div className="flex items-end">
+              <Button
+                type="submit"
+                size="lg"
+                className="h-12 w-full rounded-xl bg-rose-500 hover:bg-rose-600"
+                disabled={!isHotelValid}
+              >
+                <Search className="h-4 w-4" />
+                Buscar
+              </Button>
+            </div>
+          </div>
+
+          <details className="group rounded-2xl border border-stone-200 bg-stone-50/80">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-semibold text-slate-800">
+              <span className="flex items-center gap-2">
+                <SlidersHorizontal className="h-4 w-4 text-rose-500" />
+                Detalles de estadia
+              </span>
+              <span className="text-xs font-medium text-muted-foreground group-open:hidden">
+                {getOptionLabel(hotelForm.guests, hotelGuestOptions)}
+              </span>
+            </summary>
+            <div className="grid gap-3 border-t border-stone-200 p-4 md:grid-cols-3">
             <div className="space-y-2">
               <label className="text-sm font-medium">Huespedes</label>
               <Select
@@ -528,9 +564,6 @@ export function TravelSearchPanel() {
                 </SelectContent>
               </Select>
             </div>
-          </div>
-
-          <div className="grid gap-4 lg:grid-cols-[1fr_auto]">
             <div className="space-y-2">
               <label className="text-sm font-medium">Regimen</label>
               <Select
@@ -551,22 +584,14 @@ export function TravelSearchPanel() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="flex items-end">
-              <Button
-                type="submit"
-                className="w-full bg-rose-500 hover:bg-rose-600"
-                disabled={!isHotelValid}
-              >
-                Buscar hoteles
-              </Button>
             </div>
-          </div>
+          </details>
         </form>
       </TabsContent>
 
-      <TabsContent value="paquetes" className="mt-5">
-        <form onSubmit={handlePackageSubmit} className="space-y-4">
-          <div className="grid gap-4 xl:grid-cols-[1fr_1fr_1.1fr]">
+      <TabsContent value="paquetes" className="mt-4">
+        <form onSubmit={handlePackageSubmit} className="space-y-3">
+          <div className="grid gap-3 lg:grid-cols-[1fr_1fr_1.1fr_auto] lg:items-end">
             <div className="space-y-2">
               <label className="text-sm font-medium">Origen</label>
               <DestinationSearch
@@ -599,9 +624,30 @@ export function TravelSearchPanel() {
                 maxNights={18}
               />
             </div>
+            <div className="flex items-end">
+              <Button
+                type="submit"
+                size="lg"
+                className="h-12 w-full rounded-xl bg-rose-500 hover:bg-rose-600"
+                disabled={!isPackageValid}
+              >
+                <Search className="h-4 w-4" />
+                Buscar
+              </Button>
+            </div>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-[1fr_1fr_1fr_auto]">
+          <details className="group rounded-2xl border border-stone-200 bg-stone-50/80">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-semibold text-slate-800">
+              <span className="flex items-center gap-2">
+                <SlidersHorizontal className="h-4 w-4 text-rose-500" />
+                Detalles del paquete
+              </span>
+              <span className="text-xs font-medium text-muted-foreground group-open:hidden">
+                {getOptionLabel(packageForm.travelers, packageTravelerOptions)}
+              </span>
+            </summary>
+            <div className="grid gap-3 border-t border-stone-200 p-4 md:grid-cols-3">
             <div className="space-y-2">
               <label className="text-sm font-medium">Viajeros</label>
               <Select
@@ -662,16 +708,8 @@ export function TravelSearchPanel() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="flex items-end">
-              <Button
-                type="submit"
-                className="w-full bg-rose-500 hover:bg-rose-600"
-                disabled={!isPackageValid}
-              >
-                Buscar paquetes
-              </Button>
             </div>
-          </div>
+          </details>
 
           {packageForm.origin === packageForm.destination ? (
             <p className="text-sm text-amber-600">
@@ -681,42 +719,38 @@ export function TravelSearchPanel() {
         </form>
       </TabsContent>
 
-      <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-600">
-        <span className="inline-flex items-center gap-2 rounded-full bg-stone-100 px-3 py-1.5">
+      <div className="mt-4 grid gap-2 text-xs text-slate-600 sm:grid-cols-3">
+        <span className="inline-flex items-center justify-center gap-2 rounded-full bg-stone-100 px-3 py-2">
           <ShieldCheck className="h-3.5 w-3.5 text-rose-500" />
           Asistencia 24/7
         </span>
-        <span className="inline-flex items-center gap-2 rounded-full bg-stone-100 px-3 py-1.5">
+        <span className="inline-flex items-center justify-center gap-2 rounded-full bg-stone-100 px-3 py-2">
           <CreditCard className="h-3.5 w-3.5 text-rose-500" />
-          Pagos en cuotas para la demo
+          Pagos en cuotas
         </span>
-        <span className="inline-flex items-center gap-2 rounded-full bg-stone-100 px-3 py-1.5">
+        <span className="inline-flex items-center justify-center gap-2 rounded-full bg-stone-100 px-3 py-2">
           <Users className="h-3.5 w-3.5 text-rose-500" />
-          Itinerarios pensados para familias y parejas
-        </span>
-        <span className="inline-flex items-center gap-2 rounded-full bg-stone-100 px-3 py-1.5">
-          <BriefcaseBusiness className="h-3.5 w-3.5 text-rose-500" />
-          Cotizacion clara por categoria
+          Viajes a medida
         </span>
       </div>
 
-      <div className="mt-5 rounded-3xl border border-stone-200 bg-gradient-to-br from-stone-50 via-white to-rose-50 p-5">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+      <div className="mt-4 rounded-2xl border border-stone-200 bg-white p-4 shadow-sm sm:p-5">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-rose-500">
+            <p className="text-xs font-semibold uppercase text-rose-500">
               {preview.badge}
             </p>
-            <h3 className="mt-2 text-2xl font-bold text-slate-900">
+            <h3 className="mt-1 text-xl font-bold leading-snug text-slate-900 sm:text-2xl">
               {preview.title}
             </h3>
             <p className="mt-2 text-sm text-slate-600">{preview.description}</p>
           </div>
 
-          <div className="rounded-2xl bg-white px-4 py-3 shadow-sm lg:min-w-60">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          <div className="rounded-2xl bg-stone-50 px-4 py-3 lg:min-w-56">
+            <p className="text-xs font-semibold uppercase text-muted-foreground">
               Referencia
             </p>
-            <p className="mt-1 text-3xl font-bold text-slate-900">
+            <p className="mt-1 text-2xl font-bold text-slate-900">
               {preview.price}
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
